@@ -10,6 +10,9 @@ var MongoStore = require('connect-mongo')(session);
 var routes = require('./routes/index');
 var settings = require('./settings');
 var flash = require('connect-flash');
+var multer  = require('multer');
+
+
 
 var app = express();
 
@@ -38,6 +41,13 @@ app.use(session({
     host: settings.host,
     port: settings.port
   })
+}));
+
+app.use(multer({
+  dest: './public/images',
+  rename: function (fieldname, filename) {
+    return filename;
+  }
 }));
 
 
