@@ -11,7 +11,7 @@ var routes = require('./routes/index');
 var settings = require('./settings');
 var flash = require('connect-flash');
 var multer  = require('multer');
-
+var moment = require('moment');
 
 
 var app = express();
