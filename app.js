@@ -13,6 +13,9 @@ var flash = require('connect-flash');
 var multer  = require('multer');
 var moment = require('moment');
 
+var fs = require('fs');
+var accessLog = fs.createWriteStream('access.log', {flags: 'a'});
+var errorLog = fs.createWriteStream('error.log', {flags: 'a'});
 
 var app = express();
 
@@ -31,6 +34,11 @@ app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function (err, req, res, next) {
+  var meta = '[' + new Date() + '] ' + req.url + '\n';
+  errorLog.write(meta + err.stack + '\n');
+  next();
+});
 
 app.use(session({
   secret: settings.cookieSecret,
