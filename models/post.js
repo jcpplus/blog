@@ -2,8 +2,9 @@ var mongodb = require('./db'),
     markdown = require('markdown').markdown,
     moment = require('moment');
 
-function Post(name, title, post) {
+function Post(name, head, title, post) {
     this.name = name;
+    this.head = head;
     this.title = title;
     this.post = post;
 }
@@ -24,6 +25,7 @@ Post.prototype.save = function(callback) {
         //要存入数据库的文档
     var post = {
         name: this.name,
+        head: this.head,
         time: time,
         title: this.title,
         post: this.post,
